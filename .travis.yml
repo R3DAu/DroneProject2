@@ -1,8 +1,7 @@
 language: csharp
-solution: "./Test-Project/ARDrone2-Project.sln"
+solution: "./DroneProject2.sln"
 install:
-  - nuget restore "./Test-Project/ARDrone2-Project.sln"
+  - nuget restore "./DroneProject2.sln"
   - nuget install NUnit.Console -Version 3.10.0 -OutputDirectory testrunner
 script:
-  - msbuild /p:Configuration=Debug ./Test-Project/ARDrone2-Project.sln
-  - mono ./testrunner/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe ./Test-Project/WARD-UnitTesting/bin/Debug/WARD-UnitTesting.dll
+  - msbuild /p:Configuration=Debug ./DroneProject2.sln
