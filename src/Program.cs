@@ -1,9 +1,10 @@
-﻿using ATeam_DroneController;
-// using ConsoleController;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ARDrone2_Controller
+namespace DroneProject2
 {
     static class Program
     {

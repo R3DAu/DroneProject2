@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ARDrone2-Controller")]
+[assembly: AssemblyTitle("DroneProject2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ARDrone2-Controller")]
+[assembly: AssemblyProduct("DroneProject2")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b250828b-c95f-418b-b5ec-365627bccbb4")]
+[assembly: Guid("9730dbfb-c61c-44b1-9a69-e1788ee5b27f")]
 
 // Version information for an assembly consists of the following four values:
 //
