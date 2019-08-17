@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using DVAPI = DroneProject2.src.controller.DroneVideo_API;
@@ -55,6 +48,70 @@ namespace DroneProject2
         {
             DVAPI.VideoTimerTick();
             videoInput.Image = DVAPI.FrameBitmap;
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Start();
+            //automatically do the flat trim on startup.
+            DCAPI.FlatTrim();
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Stop();
+        }
+
+        private void TakeOffButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Takeoff();
+        }
+
+        private void LandButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Land();
+        }
+
+        private void EmergencyButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Emergency();
+        }
+
+        private void ResetEmergencyButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.ResetEmergency();
+            //automatically redo the flat trim.
+            DCAPI.FlatTrim();
+        }
+
+        private void UpButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Gaz();
+        }
+
+        private void DownButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Gaz(false);
+        }
+
+        private void ForwardButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Pitch();
+        }
+
+        private void BackwardsButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Pitch(false);
+        }
+
+        private void LeftButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Roll();
+        }
+
+        private void RightButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Roll(false);
         }
     }
 }

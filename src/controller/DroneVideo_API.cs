@@ -35,7 +35,7 @@ namespace DroneProject2.src.controller
 
         public static void VideoWorkerBinder()
         {
-            //Let's do 2 video Inputs
+            //Let's do video Inputs
             VideoPacketDecoderWorker  = new VideoPacketDecoderWorker(AR.Drone.Video.PixelFormat.BGR24, true, OnVideoPacketDecoded);
             VideoPacketDecoderWorker.Start();
 

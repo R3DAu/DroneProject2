@@ -32,9 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DroneProject2));
             this.videoInput = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.UpButton = new System.Windows.Forms.Button();
+            this.ForwardButton = new System.Windows.Forms.Button();
             this.RightButton = new System.Windows.Forms.Button();
-            this.DownButton = new System.Windows.Forms.Button();
+            this.BackwardsButton = new System.Windows.Forms.Button();
             this.LeftButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
@@ -43,6 +43,8 @@
             this.TakeOffButton = new System.Windows.Forms.Button();
             this.LandButton = new System.Windows.Forms.Button();
             this.VideoUpdate_Tick = new System.Windows.Forms.Timer(this.components);
+            this.UpButton = new System.Windows.Forms.Button();
+            this.DownButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.videoInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -65,15 +67,16 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // UpButton
+            // ForwardButton
             // 
-            this.UpButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpButton.Location = new System.Drawing.Point(76, 394);
-            this.UpButton.Name = "UpButton";
-            this.UpButton.Size = new System.Drawing.Size(32, 32);
-            this.UpButton.TabIndex = 2;
-            this.UpButton.Text = "↑";
-            this.UpButton.UseVisualStyleBackColor = true;
+            this.ForwardButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForwardButton.Location = new System.Drawing.Point(76, 394);
+            this.ForwardButton.Name = "ForwardButton";
+            this.ForwardButton.Size = new System.Drawing.Size(32, 32);
+            this.ForwardButton.TabIndex = 2;
+            this.ForwardButton.Text = "↑";
+            this.ForwardButton.UseVisualStyleBackColor = true;
+            this.ForwardButton.Click += new System.EventHandler(this.ForwardButton_Click);
             // 
             // RightButton
             // 
@@ -84,16 +87,18 @@
             this.RightButton.TabIndex = 3;
             this.RightButton.Text = "→";
             this.RightButton.UseVisualStyleBackColor = true;
+            this.RightButton.Click += new System.EventHandler(this.RightButton_Click);
             // 
-            // DownButton
+            // BackwardsButton
             // 
-            this.DownButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DownButton.Location = new System.Drawing.Point(76, 452);
-            this.DownButton.Name = "DownButton";
-            this.DownButton.Size = new System.Drawing.Size(32, 32);
-            this.DownButton.TabIndex = 4;
-            this.DownButton.Text = "↓";
-            this.DownButton.UseVisualStyleBackColor = true;
+            this.BackwardsButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackwardsButton.Location = new System.Drawing.Point(76, 452);
+            this.BackwardsButton.Name = "BackwardsButton";
+            this.BackwardsButton.Size = new System.Drawing.Size(32, 32);
+            this.BackwardsButton.TabIndex = 4;
+            this.BackwardsButton.Text = "↓";
+            this.BackwardsButton.UseVisualStyleBackColor = true;
+            this.BackwardsButton.Click += new System.EventHandler(this.BackwardsButton_Click);
             // 
             // LeftButton
             // 
@@ -104,6 +109,7 @@
             this.LeftButton.TabIndex = 5;
             this.LeftButton.Text = "←";
             this.LeftButton.UseVisualStyleBackColor = true;
+            this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
             // StartButton
             // 
@@ -114,6 +120,7 @@
             this.StartButton.TabIndex = 6;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = false;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // StopButton
             // 
@@ -125,6 +132,7 @@
             this.StopButton.TabIndex = 7;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = false;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
             // EmergencyButton
             // 
@@ -136,6 +144,7 @@
             this.EmergencyButton.TabIndex = 8;
             this.EmergencyButton.Text = "EMERGENCY SHUTDOWN";
             this.EmergencyButton.UseVisualStyleBackColor = false;
+            this.EmergencyButton.Click += new System.EventHandler(this.EmergencyButton_Click);
             // 
             // ResetEmergencyButton
             // 
@@ -145,6 +154,7 @@
             this.ResetEmergencyButton.TabIndex = 9;
             this.ResetEmergencyButton.Text = "RESET EMERGENCY";
             this.ResetEmergencyButton.UseVisualStyleBackColor = true;
+            this.ResetEmergencyButton.Click += new System.EventHandler(this.ResetEmergencyButton_Click);
             // 
             // TakeOffButton
             // 
@@ -154,6 +164,7 @@
             this.TakeOffButton.TabIndex = 10;
             this.TakeOffButton.Text = "Take Off";
             this.TakeOffButton.UseVisualStyleBackColor = true;
+            this.TakeOffButton.Click += new System.EventHandler(this.TakeOffButton_Click);
             // 
             // LandButton
             // 
@@ -163,17 +174,42 @@
             this.LandButton.TabIndex = 11;
             this.LandButton.Text = "Land";
             this.LandButton.UseVisualStyleBackColor = true;
+            this.LandButton.Click += new System.EventHandler(this.LandButton_Click);
             // 
             // VideoUpdate_Tick
             // 
             this.VideoUpdate_Tick.Interval = 20;
             this.VideoUpdate_Tick.Tick += new System.EventHandler(this.VideoUpdate_Tick_Tick);
             // 
+            // UpButton
+            // 
+            this.UpButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpButton.Location = new System.Drawing.Point(170, 394);
+            this.UpButton.Name = "UpButton";
+            this.UpButton.Size = new System.Drawing.Size(32, 32);
+            this.UpButton.TabIndex = 12;
+            this.UpButton.Text = "↑";
+            this.UpButton.UseVisualStyleBackColor = true;
+            this.UpButton.Click += new System.EventHandler(this.UpButton_Click);
+            // 
+            // DownButton
+            // 
+            this.DownButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DownButton.Location = new System.Drawing.Point(170, 452);
+            this.DownButton.Name = "DownButton";
+            this.DownButton.Size = new System.Drawing.Size(32, 32);
+            this.DownButton.TabIndex = 13;
+            this.DownButton.Text = "↓";
+            this.DownButton.UseVisualStyleBackColor = true;
+            this.DownButton.Click += new System.EventHandler(this.DownButton_Click);
+            // 
             // DroneProject2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 499);
+            this.Controls.Add(this.DownButton);
+            this.Controls.Add(this.UpButton);
             this.Controls.Add(this.LandButton);
             this.Controls.Add(this.TakeOffButton);
             this.Controls.Add(this.ResetEmergencyButton);
@@ -181,9 +217,9 @@
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.LeftButton);
-            this.Controls.Add(this.DownButton);
+            this.Controls.Add(this.BackwardsButton);
             this.Controls.Add(this.RightButton);
-            this.Controls.Add(this.UpButton);
+            this.Controls.Add(this.ForwardButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.videoInput);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -200,9 +236,9 @@
 
         private System.Windows.Forms.PictureBox videoInput;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button UpButton;
+        private System.Windows.Forms.Button ForwardButton;
         private System.Windows.Forms.Button RightButton;
-        private System.Windows.Forms.Button DownButton;
+        private System.Windows.Forms.Button BackwardsButton;
         private System.Windows.Forms.Button LeftButton;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button StopButton;
@@ -211,6 +247,8 @@
         private System.Windows.Forms.Button TakeOffButton;
         private System.Windows.Forms.Button LandButton;
         private System.Windows.Forms.Timer VideoUpdate_Tick;
+        private System.Windows.Forms.Button UpButton;
+        private System.Windows.Forms.Button DownButton;
     }
 }
 
