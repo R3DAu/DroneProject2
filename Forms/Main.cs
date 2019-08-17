@@ -41,6 +41,7 @@ namespace DroneProject2
 
         protected override void OnClosed(EventArgs e)
         {
+            DVAPI.VideoPacketDecoderWorker.Dispose();
             base.OnClosed(e);
         }
 
