@@ -29,9 +29,21 @@ namespace DroneProject2.src.controller
         public static NavigationData NavigationData;
         private static NavigationPacket _navigationPacket;
         private static PacketRecorder _packetRecorderWorker;
-        private static FileStream _recorderStream;
-        private static Autopilot _autopilot;
 
+
+        public static void HorizontalCamera()
+        {
+            var configuration = new Settings();
+            configuration.Video.Channel = VideoChannelType.Horizontal;
+            DroneController_API._client.Send(configuration);
+        }
+
+        public static void VerticalCamera()
+        {
+            var configuration = new Settings();
+            configuration.Video.Channel = VideoChannelType.Vertical;
+            DroneController_API._client.Send(configuration);
+        }
 
         public static void VideoWorkerBinder()
         {
@@ -39,9 +51,7 @@ namespace DroneProject2.src.controller
             VideoPacketDecoderWorker  = new VideoPacketDecoderWorker(AR.Drone.Video.PixelFormat.BGR24, true, OnVideoPacketDecoded);
             VideoPacketDecoderWorker.Start();
 
-            var configuration = new Settings();
-            configuration.Video.Channel = VideoChannelType.HorizontalPlusSmallVertical;
-            DroneController_API._client.Send(configuration);
+            HorizontalCamera();
         }
 
         public static void VideoTimerTick()

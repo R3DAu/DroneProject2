@@ -16,6 +16,7 @@ namespace DroneProject2
 
             //let's bind some video events.
             DVAPI.VideoWorkerBinder();
+
             DC.NavigationPacketAcquired += DVAPI.OnNavigationPacketAcquired;
             DC.VideoPacketAcquired += DVAPI.OnVideoPacketAcquired;
 
@@ -24,6 +25,7 @@ namespace DroneProject2
             
             //start all the timers.
             VideoUpdate_Tick.Enabled = true;
+            StatusTick.Enabled = true;
 
             //now drop the video packet decoder worker if it registers an issue. 
             DVAPI.VideoPacketDecoderWorker.UnhandledException += UnhandledException;
@@ -42,6 +44,7 @@ namespace DroneProject2
         protected override void OnClosed(EventArgs e)
         {
             DVAPI.VideoPacketDecoderWorker.Dispose();
+            DC.Dispose();
             base.OnClosed(e);
         }
 
@@ -50,6 +53,8 @@ namespace DroneProject2
             DVAPI.VideoTimerTick();
             videoInput.Image = DVAPI.FrameBitmap;
         }
+
+     
 
         private void StartButton_Click(object sender, EventArgs e)
         {
@@ -114,5 +119,46 @@ namespace DroneProject2
         {
             DCAPI.Roll(false);
         }
+
+        private void StatusTick_Tick(object sender, EventArgs e)
+        {
+            //force the API to pull the current status values in.
+            DCAPI.UpdateStatus();
+
+            //update the state and the connected text boxes
+            StateBox.Text = DCAPI.DroneNavigationState.ToString();
+            ConnectedBox.Text = DCAPI.IsDroneConnected.ToString();
+
+            //update the battery levels and progress percentages
+            BatteryLevelPBLower.Value = int.Parse(DCAPI.DroneBatteryPercentage.ToString());
+            BatteryPercentageLabel.Text = DCAPI.DroneBatteryPercentage.ToString() + "%";
+
+            //update the wireless quality and percentages.
+            WifiQualityPB.Value = int.Parse(DCAPI.DroneWIFIQuality.ToString()) * 100;
+            WifiQualityPercentageLabel.Text = (int.Parse(DCAPI.DroneWIFIQuality.ToString()) * 100).ToString() + "%";
+
+            //deal with the flight stats. Need to round off the floats to make it look good.
+            MagnetoOffsetXBox.Text = Math.Round(DCAPI.DroneMagnetoOffsetX, 2).ToString();
+            MagnetoOffsetYBox.Text = Math.Round(DCAPI.DroneMagnetoOffsetY, 2).ToString();
+            MagnetoOffsetZBox.Text = Math.Round(DCAPI.DroneMagnetoOffsetZ, 2).ToString();
+
+            MagnetoRectifiedXBox.Text = Math.Round(DCAPI.DroneMagnetoRectifiedX, 2).ToString();
+            MagnetoRectifiedYBox.Text = Math.Round(DCAPI.DroneMagnetoRectifiedY, 2).ToString();
+            MagnetoRectifiedZBox.Text = Math.Round(DCAPI.DroneMagnetoRectifiedZ, 2).ToString();
+
+            VelocityXBox.Text = Math.Round(DCAPI.DroneVelocityX, 2).ToString();
+            VelocityYBox.Text = Math.Round(DCAPI.DroneVelocityY, 2).ToString();
+            VelocityZBox.Text = Math.Round(DCAPI.DroneVelocityZ, 2).ToString();
+
+            RollBox.Text = Math.Round(DCAPI.DroneRoll, 2).ToString();
+            PitchBox.Text = Math.Round(DCAPI.DronePitch, 2).ToString();
+            AltitudeBox.Text = Math.Round(DCAPI.DroneAltitude, 2).ToString() + "M";
+            YawBox.Text = Math.Round(DCAPI.DroneYaw, 2).ToString();
+
+            //add useless stats.
+            TimeLabel.Text = TimeSpan.FromMilliseconds((DCAPI.DroneTime / 1000)).ToString(@"hh\:mm\:ss");
+            VideoFrameNumberLabel.Text = DCAPI.DroneVideoFrame.ToString();
+        }
+
     }
 }

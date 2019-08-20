@@ -113,7 +113,7 @@ namespace DroneProject2.src.controller
         public static AR.Drone.Data.Navigation.NavigationState DroneNavigationState = _client.NavigationData.State;
 
         /// <summary>
-        /// Drone Flight Time (seconds)
+        /// Drone Flight Time (milliseconds)
         /// </summary>
         public static float DroneTime = _client.NavigationData.Time;
 
@@ -140,6 +140,32 @@ namespace DroneProject2.src.controller
 
         //------------------------------------              Drone Control Methods and Properties.       ------------------------------------------\\
 
+
+        public static void UpdateStatus()
+        {
+            IsDroneConnected       = _client.IsConnected;
+            IsDroneActive          = _client.IsActive;
+            DroneBatteryPercentage = _client.NavigationData.Battery.Percentage;
+            IsDroneBatteryLow      = _client.NavigationData.Battery.Low;
+            DroneAltitude          = _client.NavigationData.Altitude;
+            DroneWIFIQuality       = _client.NavigationData.Wifi.LinkQuality;
+            DroneMagnetoOffsetX    = _client.NavigationData.Magneto.Offset.X;
+            DroneMagnetoOffsetY    = _client.NavigationData.Magneto.Offset.Y;
+            DroneMagnetoOffsetZ    = _client.NavigationData.Magneto.Offset.Z;
+            DroneMagnetoRectifiedX = _client.NavigationData.Magneto.Rectified.X;
+            DroneMagnetoRectifiedY = _client.NavigationData.Magneto.Rectified.Y;
+            DroneMagnetoRectifiedZ = _client.NavigationData.Magneto.Rectified.Z;
+            DronePitch             = _client.NavigationData.Pitch;
+            DroneRoll              = _client.NavigationData.Roll;
+            DroneYaw               = _client.NavigationData.Yaw;
+            DroneNavigationState   = _client.NavigationData.State;
+            DroneTime              = _client.NavigationData.Time;
+            DroneVelocityX         = _client.NavigationData.Velocity.X;
+            DroneVelocityY         = _client.NavigationData.Velocity.Y;
+            DroneVelocityZ         = _client.NavigationData.Velocity.Z;
+            DroneVideoFrame        = _client.NavigationData.Video.FrameNumber;
+
+        }
       
 
         /// <summary>
