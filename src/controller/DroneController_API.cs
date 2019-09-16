@@ -182,6 +182,7 @@ namespace DroneProject2.src.controller
         public static void Takeoff()
         {
             _client.Takeoff();
+            _client.Hover();
         }
 
         /// <summary>

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-
+using DroneProject2.src.controller;
 using DVAPI = DroneProject2.src.controller.DroneVideo_API;
 using DCAPI = DroneProject2.src.controller.DroneController_API;
+
 
 namespace DroneProject2
 {
@@ -29,6 +30,16 @@ namespace DroneProject2
 
             //now drop the video packet decoder worker if it registers an issue. 
             DVAPI.VideoPacketDecoderWorker.UnhandledException += UnhandledException;
+
+
+            var csv = new CSVReader();
+            var c = csv.Read();
+            foreach (var x in c)
+            {
+                foreach(var y in x.Value)
+                    MessageBox.Show(y.Value);
+            }
+               
         }
 
         private void DroneProject2_Load(object sender, EventArgs e)
@@ -160,5 +171,9 @@ namespace DroneProject2
             VideoFrameNumberLabel.Text = DCAPI.DroneVideoFrame.ToString();
         }
 
+        private void HoverButton_Click(object sender, EventArgs e)
+        {
+            DCAPI.Hover();
+        }
     }
 }

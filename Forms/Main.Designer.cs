@@ -90,6 +90,7 @@
             this.TimeAliveLabel = new System.Windows.Forms.Label();
             this.VideoFrameLabel = new System.Windows.Forms.Label();
             this.VideoFrameNumberLabel = new System.Windows.Forms.Label();
+            this.HoverButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.videoInput)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.FlightStatsGB.SuspendLayout();
@@ -655,11 +656,22 @@
             this.VideoFrameNumberLabel.TabIndex = 51;
             this.VideoFrameNumberLabel.Text = "0";
             // 
+            // HoverButton
+            // 
+            this.HoverButton.Location = new System.Drawing.Point(231, 399);
+            this.HoverButton.Name = "HoverButton";
+            this.HoverButton.Size = new System.Drawing.Size(75, 24);
+            this.HoverButton.TabIndex = 52;
+            this.HoverButton.Text = "Hover";
+            this.HoverButton.UseVisualStyleBackColor = true;
+            this.HoverButton.Click += new System.EventHandler(this.HoverButton_Click);
+            // 
             // DroneProject2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 509);
+            this.Controls.Add(this.HoverButton);
             this.Controls.Add(this.VideoFrameNumberLabel);
             this.Controls.Add(this.VideoFrameLabel);
             this.Controls.Add(this.TimeAliveLabel);
@@ -762,6 +774,7 @@
         private System.Windows.Forms.Label TimeAliveLabel;
         private System.Windows.Forms.Label VideoFrameLabel;
         private System.Windows.Forms.Label VideoFrameNumberLabel;
+        private System.Windows.Forms.Button HoverButton;
     }
 }
 
