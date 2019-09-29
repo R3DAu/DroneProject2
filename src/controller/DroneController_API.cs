@@ -260,6 +260,19 @@ namespace DroneProject2.src.controller
         }
 
         /// <summary>
+        /// YAW: Left and Right movement
+        /// </summary>
+        /// <param name="direction">If True -> Turn Left (Default), else Turn Right</param>
+        /// <param name="val">Float: Default is the yawval constant.</param>
+        public static void Yaw(bool direction = true, float val = _yawval)
+        {
+            if (direction)
+                _client.Progress(_flightMode, roll: -val);
+            else
+                _client.Progress(_flightMode, roll: val);
+        }
+
+        /// <summary>
         /// Height Directional Movement.
         /// </summary>
         /// <param name="direction">If True -> Ascend (Default), else descend</param>

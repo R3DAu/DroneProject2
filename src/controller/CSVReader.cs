@@ -1,17 +1,151 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 
 namespace DroneProject2.src.controller
 {
     public class CSVReader
     {
+        public List<string> files = new List<string>();  
         private const string data = @"C:\data\test.csv";
 
-        public Dictionary<int, Dictionary<string, string>> Read()
+        public bool AutoPilotIsAllowed = true;
+
+        public void Execute_File(string file)
+        {
+            //use the read function below to read the CSV file and extract the 3 variables we need. 
+            var cmds = Read(file);
+
+            foreach (var cmdRow in cmds)
+            {
+                CSVFunction movement = CSVFunction.NULL;
+                bool direction = false;
+                float f = 0;
+
+                bool MovementSet = false;
+                bool DirectionSet = false;
+                bool FloatSet = false;
+
+                foreach (var cmd in cmdRow.Value)
+                {
+                    if (cmd.Key == "Movement")
+                    {
+                        var x = cmd.Value;
+
+                        if (CSVFunctions.CSVStringEnums.ContainsKey(x))
+                        {
+                            movement = CSVFunctions.CSVStringEnums[x];
+                            MovementSet = true;
+                        }
+                    }
+
+                    if (cmd.Key == "Direction")
+                    {
+                        direction = bool.Parse(cmd.Value);
+                        DirectionSet = true;
+                    }
+
+                    if (cmd.Key == "Float")
+                    {
+                        f = float.Parse(cmd.Value);
+                        FloatSet = true;
+                    }
+                }
+
+                if(!MovementSet || !DirectionSet || !FloatSet)
+                {
+                    //kill the drone.
+                    DroneController_API.Emergency();
+
+                    //send error message.
+                    MessageBox.Show("Failure to communicate", "CSV File ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void Load_Files(string dir = @"c:\data\")
+        {
+            //checks if the data directory exists. Will exit the program if this directory doesn't exist.
+            if (!Directory.Exists(dir))
+            {
+                MessageBox.Show(dir + " was not found. Please create it first.");
+                Environment.Exit((int)new System.ComponentModel.Int32Converter().ConvertFromString("0x80070002"));
+                return;
+            }
+
+            string[] fs = Directory.GetFiles(dir);
+            if(fs.Length <= 0)
+            {
+                MessageBox.Show("There were no files found in: " +dir+ ". Autopilot mode will be disabled.");
+                AutoPilotIsAllowed = false;
+            }
+
+            foreach (var x in fs)
+                files.Add(x);
+        }
+
+        public bool Verify_CSV_Files()
+        {
+            foreach (var file in files)
+            {
+                //read each file
+                var commands = Read(file);
+
+                //now that we have all the commands, we need to check if the commands fit within the controlled enums.
+                foreach (var commandRow in commands)
+                {
+                    foreach (var command in commandRow.Value)
+                    {
+                        //check the movement value.
+                        if (command.Key == "Movement")
+                        {
+                            //check for static command values.
+                            if (!CSVFunctions.CSVStringEnums.ContainsKey(command.Value))
+                            {
+                                AutoPilotIsAllowed = false;
+                                return false;
+                            }
+                        }
+
+                        //check the directional value
+                        if(command.Key == "Direction")
+                        {
+                            try
+                            {
+                                var x = bool.Parse(command.Value);
+                            }
+                            catch(Exception)
+                            {
+                                AutoPilotIsAllowed = false;
+                                return false;
+                            }
+                        }
+
+                        //check the float value
+                        if (command.Key == "Float")
+                        {
+                            try
+                            {
+                                var x = float.Parse(command.Value);
+                            }
+                            catch (Exception)
+                            {
+                                AutoPilotIsAllowed = false;
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        return true;
+        }
+
+
+
+        // TODO: FIX FILE variables
+        public Dictionary<int, Dictionary<string, string>> Read(string file = data)
         {
             using (TextFieldParser csvParser = new TextFieldParser(data))
             {
@@ -32,8 +166,8 @@ namespace DroneProject2.src.controller
                     if (fields[0] != null)
                     {
                         Row.Add("Movement", fields[0]);
-                        Row.Add("Float", fields[1]);
-                        Row.Add("Check", fields[2]);
+                        Row.Add("Direction", fields[1]);
+                        Row.Add("Float", fields[2]);
                     }
 
                     Rows.Add(x, Row);
