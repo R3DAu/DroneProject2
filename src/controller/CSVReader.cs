@@ -13,6 +13,10 @@ namespace DroneProject2.src.controller
 
         public bool AutoPilotIsAllowed = true;
 
+        /// <summary>
+        /// This function allows the execution of a CSV format file
+        /// </summary>
+        /// <param name="file"> The CSV file to execute </param>
         public void Execute_File(string file)
         {
             //use the read function below to read the CSV file and extract the 3 variables we need. 
@@ -61,10 +65,27 @@ namespace DroneProject2.src.controller
 
                     //send error message.
                     MessageBox.Show("Failure to communicate", "CSV File ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    //Disable the autopilot
+                    AutoPilotIsAllowed = false;
+                    Program.DP2.APFilesCombo.Enabled = false;
+                    Program.DP2.ExecuteCSVButton.Enabled = false;
+
+                    //break the foreach
+                    break;
+                }
+                else
+                {
+                    CSVFunctions.dir = direction;
+                    CSVFunctions.f = f;
+
+                    //call method.
+                    CSVFunctions.CSVEnumFunctions[movement]();
                 }
             }
         }
 
+        //This function loads the directory and all the CSV files within it. 
         public void Load_Files(string dir = @"c:\data\")
         {
             //checks if the data directory exists. Will exit the program if this directory doesn't exist.
@@ -86,6 +107,10 @@ namespace DroneProject2.src.controller
                 files.Add(x);
         }
 
+        /// <summary>
+        /// This function verifies the CSV files pre-loaded and makes sure the values are within limits.
+        /// </summary>
+        /// <returns>True if all the files are verified. False if one or more files failed validation.</returns>
         public bool Verify_CSV_Files()
         {
             foreach (var file in files)
@@ -143,11 +168,14 @@ namespace DroneProject2.src.controller
         }
 
 
-
-        // TODO: FIX FILE variables
+        /// <summary>
+        /// This function reads all the lines into a dictionary array.
+        /// </summary>
+        /// <param name="file">The file to read in</param>
+        /// <returns> A Dictionary of the data </returns>
         public Dictionary<int, Dictionary<string, string>> Read(string file = data)
         {
-            using (TextFieldParser csvParser = new TextFieldParser(data))
+            using (TextFieldParser csvParser = new TextFieldParser(file))
             {
                 csvParser.CommentTokens = new string[] { "#" };
                 csvParser.SetDelimiters(new string[] { "," });

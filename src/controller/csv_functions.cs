@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DroneProject2.src.controller
 {
+    /// <summary>
+    /// This static class allows the conversion of some enumuerators and control mechanisms.
+    /// </summary>
     static class CSVFunctions
     {
-        static float f = 0.25f;
-        static bool dir = true;
+        public static float f = 0.25f;
+        public static bool dir = true;
 
-        static public Dictionary<string, CSVFunction> CSVStringEnums = new Dictionary<string, CSVFunction>()
+        public static Dictionary<string, CSVFunction> CSVStringEnums = new Dictionary<string, CSVFunction>()
         {
             {"SLEEP", CSVFunction.SLEEP},
             {"HOVER", CSVFunction.HOVER},
@@ -23,20 +23,22 @@ namespace DroneProject2.src.controller
             {"GAZ", CSVFunction.GAZ}
         };
 
-        static public Dictionary<CSVFunction, Action> CSVEnumFunctions = new Dictionary<CSVFunction, Action>()
+        public static Dictionary<CSVFunction, Action> CSVEnumFunctions = new Dictionary<CSVFunction, Action>()
         {
             {CSVFunction.SLEEP, DroneController_API.Hover},
             {CSVFunction.HOVER, DroneController_API.Hover},
             {CSVFunction.PITCH, () => DroneController_API.Pitch(dir, f)},
             {CSVFunction.ROLL, () => DroneController_API.Roll(dir, f)},
             {CSVFunction.YAW, () => DroneController_API.Yaw(dir, f)},
-            {CSVFunction.LAND, () => DroneController_API.Land()},
-            {CSVFunction.TAKEOFF, () => DroneController_API.Takeoff()},
+            {CSVFunction.LAND, DroneController_API.Land},
+            {CSVFunction.TAKEOFF, DroneController_API.Takeoff},
             {CSVFunction.GAZ, () => DroneController_API.Gaz(dir, f)}
         };
     }
     
-
+    /// <summary>
+    /// Control Enumerators for validation.
+    /// </summary>
     enum CSVFunction
     {
         NULL    = 0,
