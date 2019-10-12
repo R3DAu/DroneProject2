@@ -10,9 +10,8 @@ namespace DroneProject2
     public partial class DroneProject2 : Form
     {
         public static AR.Drone.Client.DroneClient DC = DCAPI._client;
-        public CSVReader csv = new CSVReader();
-        public Thread CommandExecutorThread;
-       
+        private CSVReader csv = new CSVReader();
+
 
         public DroneProject2()
         {

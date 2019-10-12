@@ -11,6 +11,7 @@ namespace DroneProject2
         public static DroneProject2 DP2;
         public static bool EmergencyTriggered = false;
 
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

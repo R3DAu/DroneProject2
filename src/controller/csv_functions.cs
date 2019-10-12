@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
+
 namespace DroneProject2.src.controller
 {
     /// <summary>
@@ -59,5 +60,4 @@ namespace DroneProject2.src.controller
         public bool Direction;
         public float Float;
     }
-
 }

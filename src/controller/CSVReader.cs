@@ -22,6 +22,7 @@ namespace DroneProject2.src.controller
                     return; //cancel the thread.
 
                 //set defaults
+
                 CSVFunction movement = CSVFunction.NULL;
                 bool direction = false;
                 float f = 0;
@@ -84,6 +85,7 @@ namespace DroneProject2.src.controller
         }
 
         /// <summary>
+
         /// This function reads all the lines into a dictionary array.
         /// </summary>
         /// <param name="file">The file to read in</param>
