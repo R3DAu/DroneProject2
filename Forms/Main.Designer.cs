@@ -91,9 +91,15 @@
             this.VideoFrameLabel = new System.Windows.Forms.Label();
             this.VideoFrameNumberLabel = new System.Windows.Forms.Label();
             this.HoverButton = new System.Windows.Forms.Button();
+            this.ExecuteCSVButton = new System.Windows.Forms.Button();
+            this.APFilesCombo = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.videoInput)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.FlightStatsGB.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // videoInput
@@ -108,7 +114,7 @@
             // ForwardButton
             // 
             this.ForwardButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForwardButton.Location = new System.Drawing.Point(76, 394);
+            this.ForwardButton.Location = new System.Drawing.Point(44, 11);
             this.ForwardButton.Name = "ForwardButton";
             this.ForwardButton.Size = new System.Drawing.Size(32, 32);
             this.ForwardButton.TabIndex = 2;
@@ -119,7 +125,7 @@
             // RightButton
             // 
             this.RightButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RightButton.Location = new System.Drawing.Point(106, 423);
+            this.RightButton.Location = new System.Drawing.Point(73, 41);
             this.RightButton.Name = "RightButton";
             this.RightButton.Size = new System.Drawing.Size(32, 32);
             this.RightButton.TabIndex = 3;
@@ -130,7 +136,7 @@
             // BackwardsButton
             // 
             this.BackwardsButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackwardsButton.Location = new System.Drawing.Point(76, 452);
+            this.BackwardsButton.Location = new System.Drawing.Point(44, 71);
             this.BackwardsButton.Name = "BackwardsButton";
             this.BackwardsButton.Size = new System.Drawing.Size(32, 32);
             this.BackwardsButton.TabIndex = 4;
@@ -141,7 +147,7 @@
             // LeftButton
             // 
             this.LeftButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LeftButton.Location = new System.Drawing.Point(46, 423);
+            this.LeftButton.Location = new System.Drawing.Point(16, 41);
             this.LeftButton.Name = "LeftButton";
             this.LeftButton.Size = new System.Drawing.Size(32, 32);
             this.LeftButton.TabIndex = 5;
@@ -152,7 +158,7 @@
             // StartButton
             // 
             this.StartButton.BackColor = System.Drawing.Color.LightGreen;
-            this.StartButton.Location = new System.Drawing.Point(577, 378);
+            this.StartButton.Location = new System.Drawing.Point(250, 419);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 27);
             this.StartButton.TabIndex = 6;
@@ -164,7 +170,7 @@
             // 
             this.StopButton.BackColor = System.Drawing.Color.Firebrick;
             this.StopButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.StopButton.Location = new System.Drawing.Point(577, 411);
+            this.StopButton.Location = new System.Drawing.Point(250, 448);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 27);
             this.StopButton.TabIndex = 7;
@@ -176,9 +182,9 @@
             // 
             this.EmergencyButton.BackColor = System.Drawing.Color.Red;
             this.EmergencyButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.EmergencyButton.Location = new System.Drawing.Point(231, 452);
+            this.EmergencyButton.Location = new System.Drawing.Point(381, 386);
             this.EmergencyButton.Name = "EmergencyButton";
-            this.EmergencyButton.Size = new System.Drawing.Size(244, 35);
+            this.EmergencyButton.Size = new System.Drawing.Size(170, 35);
             this.EmergencyButton.TabIndex = 8;
             this.EmergencyButton.Text = "EMERGENCY SHUTDOWN";
             this.EmergencyButton.UseVisualStyleBackColor = false;
@@ -186,7 +192,7 @@
             // 
             // ResetEmergencyButton
             // 
-            this.ResetEmergencyButton.Location = new System.Drawing.Point(482, 452);
+            this.ResetEmergencyButton.Location = new System.Drawing.Point(381, 430);
             this.ResetEmergencyButton.Name = "ResetEmergencyButton";
             this.ResetEmergencyButton.Size = new System.Drawing.Size(170, 35);
             this.ResetEmergencyButton.TabIndex = 9;
@@ -196,7 +202,7 @@
             // 
             // TakeOffButton
             // 
-            this.TakeOffButton.Location = new System.Drawing.Point(482, 381);
+            this.TakeOffButton.Location = new System.Drawing.Point(169, 419);
             this.TakeOffButton.Name = "TakeOffButton";
             this.TakeOffButton.Size = new System.Drawing.Size(75, 24);
             this.TakeOffButton.TabIndex = 10;
@@ -206,7 +212,7 @@
             // 
             // LandButton
             // 
-            this.LandButton.Location = new System.Drawing.Point(482, 414);
+            this.LandButton.Location = new System.Drawing.Point(169, 449);
             this.LandButton.Name = "LandButton";
             this.LandButton.Size = new System.Drawing.Size(75, 24);
             this.LandButton.TabIndex = 11;
@@ -222,7 +228,7 @@
             // UpButton
             // 
             this.UpButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpButton.Location = new System.Drawing.Point(170, 394);
+            this.UpButton.Location = new System.Drawing.Point(111, 11);
             this.UpButton.Name = "UpButton";
             this.UpButton.Size = new System.Drawing.Size(32, 32);
             this.UpButton.TabIndex = 12;
@@ -233,7 +239,7 @@
             // DownButton
             // 
             this.DownButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DownButton.Location = new System.Drawing.Point(170, 452);
+            this.DownButton.Location = new System.Drawing.Point(111, 71);
             this.DownButton.Name = "DownButton";
             this.DownButton.Size = new System.Drawing.Size(32, 32);
             this.DownButton.TabIndex = 13;
@@ -658,7 +664,7 @@
             // 
             // HoverButton
             // 
-            this.HoverButton.Location = new System.Drawing.Point(231, 399);
+            this.HoverButton.Location = new System.Drawing.Point(164, 11);
             this.HoverButton.Name = "HoverButton";
             this.HoverButton.Size = new System.Drawing.Size(75, 24);
             this.HoverButton.TabIndex = 52;
@@ -666,12 +672,57 @@
             this.HoverButton.UseVisualStyleBackColor = true;
             this.HoverButton.Click += new System.EventHandler(this.HoverButton_Click);
             // 
+            // ExecuteCSVButton
+            // 
+            this.ExecuteCSVButton.Location = new System.Drawing.Point(21, 42);
+            this.ExecuteCSVButton.Name = "ExecuteCSVButton";
+            this.ExecuteCSVButton.Size = new System.Drawing.Size(91, 24);
+            this.ExecuteCSVButton.TabIndex = 53;
+            this.ExecuteCSVButton.Text = "Execute CSV";
+            this.ExecuteCSVButton.UseVisualStyleBackColor = true;
+            this.ExecuteCSVButton.Click += new System.EventHandler(this.ExecuteCSVButton_Click);
+            // 
+            // APFilesCombo
+            // 
+            this.APFilesCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.APFilesCombo.FormattingEnabled = true;
+            this.APFilesCombo.Location = new System.Drawing.Point(6, 15);
+            this.APFilesCombo.Name = "APFilesCombo";
+            this.APFilesCombo.Size = new System.Drawing.Size(121, 21);
+            this.APFilesCombo.TabIndex = 54;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ExecuteCSVButton);
+            this.groupBox1.Controls.Add(this.APFilesCombo);
+            this.groupBox1.Location = new System.Drawing.Point(663, 339);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(226, 110);
+            this.groupBox1.TabIndex = 55;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Autopilot";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.HoverButton);
+            this.groupBox2.Controls.Add(this.LeftButton);
+            this.groupBox2.Controls.Add(this.RightButton);
+            this.groupBox2.Controls.Add(this.ForwardButton);
+            this.groupBox2.Controls.Add(this.BackwardsButton);
+            this.groupBox2.Controls.Add(this.UpButton);
+            this.groupBox2.Controls.Add(this.DownButton);
+            this.groupBox2.Location = new System.Drawing.Point(5, 378);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(332, 106);
+            this.groupBox2.TabIndex = 56;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Manual Controls";
+            // 
             // DroneProject2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(899, 509);
-            this.Controls.Add(this.HoverButton);
             this.Controls.Add(this.VideoFrameNumberLabel);
             this.Controls.Add(this.VideoFrameLabel);
             this.Controls.Add(this.TimeAliveLabel);
@@ -685,19 +736,15 @@
             this.Controls.Add(this.ConnectedLabel);
             this.Controls.Add(this.StateBox);
             this.Controls.Add(this.StateLabel);
-            this.Controls.Add(this.DownButton);
-            this.Controls.Add(this.UpButton);
             this.Controls.Add(this.LandButton);
             this.Controls.Add(this.TakeOffButton);
             this.Controls.Add(this.ResetEmergencyButton);
             this.Controls.Add(this.EmergencyButton);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.StartButton);
-            this.Controls.Add(this.LeftButton);
-            this.Controls.Add(this.BackwardsButton);
-            this.Controls.Add(this.RightButton);
-            this.Controls.Add(this.ForwardButton);
             this.Controls.Add(this.videoInput);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DroneProject2";
             this.Text = "Unfinished Drone Project 2";
@@ -707,6 +754,8 @@
             this.statusStrip1.PerformLayout();
             this.FlightStatsGB.ResumeLayout(false);
             this.FlightStatsGB.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -775,6 +824,10 @@
         private System.Windows.Forms.Label VideoFrameLabel;
         private System.Windows.Forms.Label VideoFrameNumberLabel;
         private System.Windows.Forms.Button HoverButton;
+        public System.Windows.Forms.Button ExecuteCSVButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.ComboBox APFilesCombo;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

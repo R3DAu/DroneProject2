@@ -3,13 +3,16 @@ using System.Windows.Forms;
 using DroneProject2.src.controller;
 using DVAPI = DroneProject2.src.controller.DroneVideo_API;
 using DCAPI = DroneProject2.src.controller.DroneController_API;
-
+using System.Threading;
 
 namespace DroneProject2
 {
     public partial class DroneProject2 : Form
     {
         public static AR.Drone.Client.DroneClient DC = DCAPI._client;
+        public CSVReader csv = new CSVReader();
+        public Thread CommandExecutorThread;
+       
 
         public DroneProject2()
         {
@@ -32,19 +35,27 @@ namespace DroneProject2
             DVAPI.VideoPacketDecoderWorker.UnhandledException += UnhandledException;
 
 
-            var csv = new CSVReader();
-            var c = csv.Read();
-            foreach (var x in c)
-            {
-                foreach(var y in x.Value)
-                    MessageBox.Show(y.Value);
-            }
-               
+            csv = new CSVReader();
+            csv.Load_Files();
         }
 
         private void DroneProject2_Load(object sender, EventArgs e)
         {
             Text += Environment.Is64BitProcess ? " [64-bit]" : " [32-bit]";
+
+            if (csv.files.Count > 0)
+            {
+                foreach (var file in csv.files)
+                    APFilesCombo.Items.Add(file);
+
+                APFilesCombo.SelectedIndex = 0;
+            }
+
+            if (!csv.AutoPilotIsAllowed)
+            {
+                Program.DP2.ExecuteCSVButton.Enabled = false;
+                Program.DP2.APFilesCombo.Enabled = false;
+            }
         }
 
         private void UnhandledException(object sender, Exception exception)
@@ -174,6 +185,13 @@ namespace DroneProject2
         private void HoverButton_Click(object sender, EventArgs e)
         {
             DCAPI.Hover();
+        }
+
+        private void ExecuteCSVButton_Click(object sender, EventArgs e)
+        {
+            //we need whatever selected file is in the list. 
+            string file = APFilesCombo.SelectedItem.ToString();
+            csv.Execute_File(file);
         }
     }
 }

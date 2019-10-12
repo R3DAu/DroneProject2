@@ -1,4 +1,6 @@
-﻿using ARDC = AR.Drone.Client;
+﻿using System;
+using System.Threading;
+using ARDC = AR.Drone.Client;
 using ARDCC = AR.Drone.Client.Command;
 
 namespace DroneProject2.src.controller
@@ -183,6 +185,7 @@ namespace DroneProject2.src.controller
         {
             _client.Takeoff();
             _client.Hover();
+            
         }
 
         /// <summary>
@@ -206,7 +209,20 @@ namespace DroneProject2.src.controller
         /// </summary>
         public static void Emergency()
         {
-            _client.Emergency();
+            try
+            {
+                //set the program to trigger the commands
+                Program.EmergencyTriggered = true;
+                Program.DP2.CommandExecutorThread.Abort(); //abort that thread.
+            }
+            catch (Exception)
+            {
+                //don't do anything.
+            }
+            finally
+            {
+                _client.Emergency();
+            }
         }
 
         /// <summary>
@@ -214,6 +230,7 @@ namespace DroneProject2.src.controller
         /// </summary>
         public static void ResetEmergency()
         {
+            Program.EmergencyTriggered = false;
             _client.ResetEmergency();
         }
 
@@ -241,9 +258,9 @@ namespace DroneProject2.src.controller
         public static void Pitch(bool direction = true, float val = _pitchval)
         {
             if (direction)
-                _client.Progress(_flightMode, pitch: val);
-            else
                 _client.Progress(_flightMode, pitch: -val);
+            else
+                _client.Progress(_flightMode, pitch: val);
         }
 
         /// <summary>
@@ -252,6 +269,19 @@ namespace DroneProject2.src.controller
         /// <param name="direction">If True -> Roll Left (Default), else Roll Right</param>
         /// <param name="val">Float: Default is the rollval constant.</param>
         public static void Roll(bool direction = true, float val = _rollval)
+        {
+            if (direction)
+                _client.Progress(_flightMode, roll: -val);
+            else
+                _client.Progress(_flightMode, roll: val);
+        }
+
+        /// <summary>
+        /// YAW: Left and Right movement
+        /// </summary>
+        /// <param name="direction">If True -> Turn Left (Default), else Turn Right</param>
+        /// <param name="val">Float: Default is the yawval constant.</param>
+        public static void Yaw(bool direction = true, float val = _yawval)
         {
             if (direction)
                 _client.Progress(_flightMode, roll: -val);
