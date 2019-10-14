@@ -11,7 +11,7 @@ namespace DroneProject2
     {
         public static AR.Drone.Client.DroneClient DC = DCAPI._client;
         private CSVReader csv = new CSVReader();
-
+        public Thread CommandExecutorThread;
 
         public DroneProject2()
         {
@@ -190,7 +190,14 @@ namespace DroneProject2
         {
             //we need whatever selected file is in the list. 
             string file = APFilesCombo.SelectedItem.ToString();
+            this.MovementLogDataGridBox.Rows.Clear();
             csv.Execute_File(file);
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

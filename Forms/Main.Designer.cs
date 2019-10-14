@@ -95,11 +95,16 @@
             this.APFilesCombo = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.MovementLogDataGridBox = new System.Windows.Forms.DataGridView();
+            this.Movement = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.videoInput)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.FlightStatsGB.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MovementLogDataGridBox)).BeginInit();
             this.SuspendLayout();
             // 
             // videoInput
@@ -285,7 +290,7 @@
             this.BatteryPercentageLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 487);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(899, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1206, 22);
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -629,7 +634,7 @@
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Location = new System.Drawing.Point(840, 471);
+            this.TimeLabel.Location = new System.Drawing.Point(1148, 474);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(49, 13);
             this.TimeLabel.TabIndex = 48;
@@ -638,7 +643,7 @@
             // TimeAliveLabel
             // 
             this.TimeAliveLabel.AutoSize = true;
-            this.TimeAliveLabel.Location = new System.Drawing.Point(769, 471);
+            this.TimeAliveLabel.Location = new System.Drawing.Point(1077, 474);
             this.TimeAliveLabel.Name = "TimeAliveLabel";
             this.TimeAliveLabel.Size = new System.Drawing.Size(66, 13);
             this.TimeAliveLabel.TabIndex = 49;
@@ -647,7 +652,7 @@
             // VideoFrameLabel
             // 
             this.VideoFrameLabel.AutoSize = true;
-            this.VideoFrameLabel.Location = new System.Drawing.Point(766, 452);
+            this.VideoFrameLabel.Location = new System.Drawing.Point(1074, 455);
             this.VideoFrameLabel.Name = "VideoFrameLabel";
             this.VideoFrameLabel.Size = new System.Drawing.Size(69, 13);
             this.VideoFrameLabel.TabIndex = 50;
@@ -656,7 +661,7 @@
             // VideoFrameNumberLabel
             // 
             this.VideoFrameNumberLabel.AutoSize = true;
-            this.VideoFrameNumberLabel.Location = new System.Drawing.Point(840, 452);
+            this.VideoFrameNumberLabel.Location = new System.Drawing.Point(1148, 455);
             this.VideoFrameNumberLabel.Name = "VideoFrameNumberLabel";
             this.VideoFrameNumberLabel.Size = new System.Drawing.Size(13, 13);
             this.VideoFrameNumberLabel.TabIndex = 51;
@@ -674,7 +679,7 @@
             // 
             // ExecuteCSVButton
             // 
-            this.ExecuteCSVButton.Location = new System.Drawing.Point(21, 42);
+            this.ExecuteCSVButton.Location = new System.Drawing.Point(4, 42);
             this.ExecuteCSVButton.Name = "ExecuteCSVButton";
             this.ExecuteCSVButton.Size = new System.Drawing.Size(91, 24);
             this.ExecuteCSVButton.TabIndex = 53;
@@ -688,7 +693,7 @@
             this.APFilesCombo.FormattingEnabled = true;
             this.APFilesCombo.Location = new System.Drawing.Point(6, 15);
             this.APFilesCombo.Name = "APFilesCombo";
-            this.APFilesCombo.Size = new System.Drawing.Size(121, 21);
+            this.APFilesCombo.Size = new System.Drawing.Size(89, 21);
             this.APFilesCombo.TabIndex = 54;
             // 
             // groupBox1
@@ -718,11 +723,48 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Manual Controls";
             // 
+            // MovementLogDataGridBox
+            // 
+            this.MovementLogDataGridBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MovementLogDataGridBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Movement,
+            this.Direction,
+            this.Value});
+            this.MovementLogDataGridBox.Location = new System.Drawing.Point(889, 7);
+            this.MovementLogDataGridBox.Name = "MovementLogDataGridBox";
+            this.MovementLogDataGridBox.Size = new System.Drawing.Size(305, 444);
+            this.MovementLogDataGridBox.TabIndex = 55;
+            this.MovementLogDataGridBox.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Movement
+            // 
+            this.Movement.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Movement.HeaderText = "Movement";
+            this.Movement.Name = "Movement";
+            this.Movement.ReadOnly = true;
+            // 
+            // Direction
+            // 
+            this.Direction.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Direction.HeaderText = "Direction";
+            this.Direction.Name = "Direction";
+            this.Direction.ReadOnly = true;
+            this.Direction.Width = 74;
+            // 
+            // Value
+            // 
+            this.Value.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
+            this.Value.Width = 59;
+            // 
             // DroneProject2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 509);
+            this.ClientSize = new System.Drawing.Size(1206, 509);
+            this.Controls.Add(this.MovementLogDataGridBox);
             this.Controls.Add(this.VideoFrameNumberLabel);
             this.Controls.Add(this.VideoFrameLabel);
             this.Controls.Add(this.TimeAliveLabel);
@@ -756,6 +798,7 @@
             this.FlightStatsGB.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MovementLogDataGridBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -828,6 +871,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.ComboBox APFilesCombo;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Movement;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Direction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        public System.Windows.Forms.DataGridView MovementLogDataGridBox;
     }
 }
 
