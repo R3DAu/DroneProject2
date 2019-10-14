@@ -5,6 +5,7 @@ using DVAPI = DroneProject2.src.controller.DroneVideo_API;
 using DCAPI = DroneProject2.Controller.DroneController_API;
 using System.Threading;
 using DroneProject2.Controller;
+using System.IO;
 
 namespace DroneProject2
 {
@@ -44,7 +45,10 @@ namespace DroneProject2
 
             //update the file list in the display
             foreach (var file in ComController.Files)
-                APFilesCombo.Items.Add(file);
+                APFilesCombo.Items.Add(Path.GetFileName(file));
+
+            if (APFilesCombo.Items.Count > 0)
+                APFilesCombo.SelectedIndex = 0;
         }
 
         public void DisableAutoPilotUI()
@@ -57,6 +61,30 @@ namespace DroneProject2
         {
             ExecuteCSVButton.Enabled = true;
             APFilesCombo.Enabled = true;
+        }
+
+        public void DisableManualUI()
+        {
+            ForwardButton.Enabled = false;
+            BackwardsButton.Enabled = false;
+            LeftButton.Enabled = false;
+            RightButton.Enabled = false;
+            HoverButton.Enabled = false;
+            TakeOffButton.Enabled = false;
+            UpButton.Enabled = false;
+            DownButton.Enabled = false;
+        }
+
+        public void EnableManualUI()
+        {
+            ForwardButton.Enabled = true;
+            BackwardsButton.Enabled = true;
+            LeftButton.Enabled = true;
+            RightButton.Enabled = true;
+            HoverButton.Enabled = true;
+            TakeOffButton.Enabled = true;
+            UpButton.Enabled = true;
+            DownButton.Enabled = true;
         }
 
         private void UnhandledException(object sender, Exception exception)
@@ -190,10 +218,22 @@ namespace DroneProject2
 
         private void ExecuteCSVButton_Click(object sender, EventArgs e)
         {
+            //Disable the UI buttons once in action.
+            DisableAutoPilotUI();
+            DisableManualUI();
+
             //we need whatever selected file is in the list. 
             var file = APFilesCombo.SelectedItem.ToString();
+
+            //clear the timers
+            LastcmdTimeLabel2.Text = "0";
+            TotalExecutionTimeLabel2.Text = "0";
+
+            //clear the rows
             MovementLogDataGridBox.Rows.Clear();
-            ComController.ExecuteFile(file);
+
+            //start the execution of the file
+            ComController.ExecuteFile(CommandController.directory + file);
         }
 
         private void MovementLogDataGridBox_CellContentClick(object sender, DataGridViewCellEventArgs e)

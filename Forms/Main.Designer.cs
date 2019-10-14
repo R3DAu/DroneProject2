@@ -101,6 +101,10 @@
             this.Yaw = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Gaz = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sleep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalExecutionTimeLabel2 = new System.Windows.Forms.Label();
+            this.ExecutionTimeTotalLabel = new System.Windows.Forms.Label();
+            this.LastcmdTimeLabel2 = new System.Windows.Forms.Label();
+            this.LastcmdTimeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.videoInput)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.FlightStatsGB.SuspendLayout();
@@ -700,11 +704,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.LastcmdTimeLabel2);
+            this.groupBox1.Controls.Add(this.LastcmdTimeLabel);
+            this.groupBox1.Controls.Add(this.TotalExecutionTimeLabel2);
             this.groupBox1.Controls.Add(this.ExecuteCSVButton);
+            this.groupBox1.Controls.Add(this.ExecutionTimeTotalLabel);
             this.groupBox1.Controls.Add(this.APFilesCombo);
             this.groupBox1.Location = new System.Drawing.Point(663, 339);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(226, 110);
+            this.groupBox1.Size = new System.Drawing.Size(226, 112);
             this.groupBox1.TabIndex = 55;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Autopilot";
@@ -740,11 +748,11 @@
             this.Yaw,
             this.Gaz,
             this.Sleep});
-            this.MovementLogDataGridBox.Location = new System.Drawing.Point(889, 7);
+            this.MovementLogDataGridBox.Location = new System.Drawing.Point(895, 7);
             this.MovementLogDataGridBox.Name = "MovementLogDataGridBox";
             this.MovementLogDataGridBox.ReadOnly = true;
             this.MovementLogDataGridBox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.MovementLogDataGridBox.Size = new System.Drawing.Size(305, 444);
+            this.MovementLogDataGridBox.Size = new System.Drawing.Size(299, 444);
             this.MovementLogDataGridBox.TabIndex = 55;
             this.MovementLogDataGridBox.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MovementLogDataGridBox_CellContentClick);
             // 
@@ -782,6 +790,42 @@
             this.Sleep.Name = "Sleep";
             this.Sleep.ReadOnly = true;
             this.Sleep.Width = 59;
+            // 
+            // TotalExecutionTimeLabel2
+            // 
+            this.TotalExecutionTimeLabel2.AutoSize = true;
+            this.TotalExecutionTimeLabel2.Location = new System.Drawing.Point(192, 20);
+            this.TotalExecutionTimeLabel2.Name = "TotalExecutionTimeLabel2";
+            this.TotalExecutionTimeLabel2.Size = new System.Drawing.Size(13, 13);
+            this.TotalExecutionTimeLabel2.TabIndex = 58;
+            this.TotalExecutionTimeLabel2.Text = "0";
+            // 
+            // ExecutionTimeTotalLabel
+            // 
+            this.ExecutionTimeTotalLabel.AutoSize = true;
+            this.ExecutionTimeTotalLabel.Location = new System.Drawing.Point(103, 20);
+            this.ExecutionTimeTotalLabel.Name = "ExecutionTimeTotalLabel";
+            this.ExecutionTimeTotalLabel.Size = new System.Drawing.Size(83, 13);
+            this.ExecutionTimeTotalLabel.TabIndex = 57;
+            this.ExecutionTimeTotalLabel.Text = "Execution Time:";
+            // 
+            // LastcmdTimeLabel2
+            // 
+            this.LastcmdTimeLabel2.AutoSize = true;
+            this.LastcmdTimeLabel2.Location = new System.Drawing.Point(192, 39);
+            this.LastcmdTimeLabel2.Name = "LastcmdTimeLabel2";
+            this.LastcmdTimeLabel2.Size = new System.Drawing.Size(13, 13);
+            this.LastcmdTimeLabel2.TabIndex = 60;
+            this.LastcmdTimeLabel2.Text = "0";
+            // 
+            // LastcmdTimeLabel
+            // 
+            this.LastcmdTimeLabel.AutoSize = true;
+            this.LastcmdTimeLabel.Location = new System.Drawing.Point(103, 39);
+            this.LastcmdTimeLabel.Name = "LastcmdTimeLabel";
+            this.LastcmdTimeLabel.Size = new System.Drawing.Size(79, 13);
+            this.LastcmdTimeLabel.TabIndex = 59;
+            this.LastcmdTimeLabel.Text = "Last cmd Time:";
             // 
             // DroneProject2
             // 
@@ -821,6 +865,7 @@
             this.FlightStatsGB.ResumeLayout(false);
             this.FlightStatsGB.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MovementLogDataGridBox)).EndInit();
             this.ResumeLayout(false);
@@ -901,6 +946,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Yaw;
         private System.Windows.Forms.DataGridViewTextBoxColumn Gaz;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sleep;
+        private System.Windows.Forms.Label LastcmdTimeLabel;
+        private System.Windows.Forms.Label ExecutionTimeTotalLabel;
+        public System.Windows.Forms.Label LastcmdTimeLabel2;
+        public System.Windows.Forms.Label TotalExecutionTimeLabel2;
     }
 }
 

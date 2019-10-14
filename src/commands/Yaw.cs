@@ -13,10 +13,10 @@ namespace DroneProject2.Commands
             Name = "Yaw";
         }
 
-        public void Execute(float f = 0.25f)
+        public override bool Execute(float f = 0.25f)
         {
             Float = f;
-            Execute(MovementType.yaw);
+            return Execute(MovementType.yaw);
         }
     }
 }

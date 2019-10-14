@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,6 +16,11 @@ namespace DroneProject2.Controller
         public List<string> Files = new List<string>();
 
         /// <summary>
+        /// Sets the directory path for where the CSV files are.
+        /// </summary>
+        public static string directory = @"C:\\DroneData\\";
+
+        /// <summary>
         /// This is a simple Command CSV function structure. 
         /// </summary>
         public struct CommandCSV
@@ -26,19 +32,23 @@ namespace DroneProject2.Controller
             public int Sleep { get; set; }
         }
 
-
         /// <summary>
         /// Internal Thread Worker function to process commands
         /// </summary>
         /// <param name="cmds">List Commands to execute</param>
         internal void ExecuteCommands(List<CommandCSV> cmds)
         {
+            //start execution timer
+            Stopwatch ExecutionTime = Stopwatch.StartNew();
             foreach (var cmdRow in cmds)
             {
+                //start command timer
+                Stopwatch cmdTime = Stopwatch.StartNew();
+
                 if (Program.EmergencyTriggered)
                     return; //cancel the thread.
 
-                Program.RegisteredCommands["Custom"].Execute(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz);
+                bool Success = Program.RegisteredCommands["Custom"].Execute(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz);
 
                 //if sleep is above 0 then we will trigger the thread to sleep.
                 if(cmdRow.Sleep > 0)
@@ -47,11 +57,44 @@ namespace DroneProject2.Controller
                 //Update the display
                 Program.DP2.BeginInvoke(new MethodInvoker(delegate
                     {
-                        Program.DP2.MovementLogDataGridBox.Rows.Add(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz,
-                            cmdRow.Sleep);
+                        //publish timers
+                        Program.DP2.TotalExecutionTimeLabel2.Text = (ExecutionTime.ElapsedMilliseconds / 1000.0).ToString();
+                        Program.DP2.LastcmdTimeLabel2.Text = (cmdTime.ElapsedMilliseconds / 1000.0).ToString();
+
+                        //push into the Movement Log DataGridBox
+                        Program.DP2.MovementLogDataGridBox.Rows.Add(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz, cmdRow.Sleep);
+
+                        //check to see if there is more than 2 items in the row then deselect the second last row.
+                        if(Program.DP2.MovementLogDataGridBox.Rows.Count > 1)
+                            Program.DP2.MovementLogDataGridBox.Rows[Program.DP2.MovementLogDataGridBox.Rows.Count - 2].Selected = false;
+
+                        //Select the last row.
+                        Program.DP2.MovementLogDataGridBox.Rows[Program.DP2.MovementLogDataGridBox.Rows.Count - 1].Selected = true;
+
+                        //Scroll to the last (first) index that selected.
+                        Program.DP2.MovementLogDataGridBox.FirstDisplayedScrollingRowIndex = Program.DP2.MovementLogDataGridBox.SelectedRows[0].Index;
                     }
                 ));
+
+                //stop the command timer
+                cmdTime.Stop();
             }
+
+            //stop the execution timer.
+            ExecutionTime.Stop();
+
+            //Update the display
+            Program.DP2.BeginInvoke(new MethodInvoker(delegate
+            {
+                //publish timers
+                Program.DP2.TotalExecutionTimeLabel2.Text = (ExecutionTime.ElapsedMilliseconds / 1000.0).ToString();
+
+                //now we can renable the UI
+                Program.DP2.EnableAutoPilotUI();
+                Program.DP2.EnableManualUI();
+            }
+            
+            ));
         }
 
         /// <summary>
@@ -68,6 +111,7 @@ namespace DroneProject2.Controller
 
             //throw the commands into the command executor thread.
             Program.DP2.CommandExecutorThread = new Thread(() => ExecuteCommands(cmds));
+            //start the thread (this is important to do... otherwise it does nothing...)
             Program.DP2.CommandExecutorThread.Start();
         }
 
@@ -75,8 +119,11 @@ namespace DroneProject2.Controller
         /// This function loads all the command CSV files into a list ready for validation.
         /// </summary>
         /// <param name="dir">The directory to use, Default is C:\\DroneData</param>
-        public void BootstrapCommandCSVFiles(string @dir = "C:\\DroneData")
+        public void BootstrapCommandCSVFiles(string @dir = "C:\\DroneData\\")
         {
+            //make sure the directory is set properly. We will add this back later on.
+            directory = dir;
+
             //checks if the data directory exists. Will exit the program if this directory doesn't exist.
             if (!Directory.Exists(dir))
             {
@@ -85,6 +132,7 @@ namespace DroneProject2.Controller
                 return;
             }
 
+            //pull the files in the directory specified.
             string[] fs = Directory.GetFiles(dir);
             if (fs.Length <= 0)
             {
