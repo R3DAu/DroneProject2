@@ -34,17 +34,18 @@ namespace DroneProject2.src.controller
                 CSVFunctions.dir = direction;
                 CSVFunctions.f = f;
 
+                Program.DP2.BeginInvoke(new MethodInvoker(delegate
+                    {
+                        //Update the logger on the UI to let the user know what is happening at what point. 
+                        Program.DP2.MovementLogDataGridBox.Rows.Add(cmdRow.Movement, direction.ToString(), f.ToString());
+                        Program.DP2.MovementLogDataGridBox.Rows[Program.DP2.MovementLogDataGridBox.Rows.Count - 1].Selected = true;
+                        Program.DP2.MovementLogDataGridBox.FirstDisplayedScrollingRowIndex = Program.DP2.MovementLogDataGridBox.SelectedRows[0].Index;
+                    }
+                ));
+
                 //call method.
                 CSVFunctions.CSVEnumFunctions[movement]();
 
-                Program.DP2.BeginInvoke(new MethodInvoker(delegate
-                {
-                   //Update the logger on the UI to let the user know what is happening at what point. 
-                   Program.DP2.MovementLogDataGridBox.Rows.Add(cmdRow.Movement, direction.ToString(), f.ToString());
-                   Program.DP2.MovementLogDataGridBox.Rows[Program.DP2.MovementLogDataGridBox.Rows.Count - 1].Selected = true;
-                   Program.DP2.MovementLogDataGridBox.FirstDisplayedScrollingRowIndex = Program.DP2.MovementLogDataGridBox.SelectedRows[0].Index;
-                }
-                ));
             }
 
             //execute the land command.

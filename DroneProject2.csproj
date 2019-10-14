@@ -74,6 +74,15 @@
     <Compile Include="Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\commands\Command.cs" />
+    <Compile Include="src\commands\CustomCommand.cs" />
+    <Compile Include="src\commands\Gaz.cs" />
+    <Compile Include="src\commands\Land.cs" />
+    <Compile Include="src\commands\Pitch.cs" />
+    <Compile Include="src\commands\Roll.cs" />
+    <Compile Include="src\commands\Takeoff.cs" />
+    <Compile Include="src\commands\Yaw.cs" />
+    <Compile Include="src\controller\CommandController.cs" />
     <Compile Include="src\controller\CSVReader.cs" />
     <Compile Include="src\controller\csv_functions.cs" />
     <Compile Include="src\controller\DroneController_API.cs" />

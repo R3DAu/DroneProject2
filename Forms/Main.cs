@@ -9,13 +9,15 @@ namespace DroneProject2
 {
     public partial class DroneProject2 : Form
     {
-        public static AR.Drone.Client.DroneClient DC = DCAPI._client;
+        public static AR.Drone.Client.DroneClient DC = Program.DClient;
         private CSVReader csv = new CSVReader();
         public Thread CommandExecutorThread;
 
         public DroneProject2()
         {
             InitializeComponent();
+
+            
 
             //let's bind some video events.
             DVAPI.VideoWorkerBinder();
@@ -55,6 +57,18 @@ namespace DroneProject2
                 Program.DP2.ExecuteCSVButton.Enabled = false;
                 Program.DP2.APFilesCombo.Enabled = false;
             }
+        }
+
+        public void DisableAutoPilotUI()
+        {
+            ExecuteCSVButton.Enabled = false;
+            APFilesCombo.Enabled = false;
+        }
+
+        public void EnableAutoPilotUI()
+        {
+            ExecuteCSVButton.Enabled = true;
+            APFilesCombo.Enabled = true;
         }
 
         private void UnhandledException(object sender, Exception exception)

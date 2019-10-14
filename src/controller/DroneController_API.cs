@@ -1,101 +1,85 @@
 ﻿using System;
-using System.Threading;
-using ARDC = AR.Drone.Client;
-using ARDCC = AR.Drone.Client.Command;
 
 namespace DroneProject2.src.controller
 {
     public static class DroneController_API
     {
-        //Client Constants
-        private static string _hostname = "192.168.1.1";
-        public static ARDC.DroneClient _client = new ARDC.DroneClient(_hostname);
-
-        //set the flightmode
-        private const ARDCC.FlightMode _flightMode = ARDCC.FlightMode.Progressive;
-
-        //now adjust the other constants.
-        private const float _yawval   = 0.25f;
-        private const float _gazval   = 0.25f;
-        private const float _rollval  = 0.05f;
-        private const float _pitchval = 0.05f;
-
         //------------------------------------              status commands and properties.       ------------------------------------------\\
 
         /// <summary>
         /// Checks if the drone is still connected.
         /// </summary>
-        public static bool IsDroneConnected = _client.IsConnected;
+        public static bool IsDroneConnected = Program.DClient.IsConnected;
 
         /// <summary>
         /// Checks to see if the drone is activated
         /// </summary>
-        public static bool IsDroneActive = _client.IsActive;
+        public static bool IsDroneActive = Program.DClient.IsActive;
 
         /// <summary>
         /// Gives a float to specify current battery levels.
         /// </summary>
-        public static float DroneBatteryPercentage = _client.NavigationData.Battery.Percentage;
+        public static float DroneBatteryPercentage = Program.DClient.NavigationData.Battery.Percentage;
 
         /// <summary>
         /// Checks the battery condition to see if the drone is at critical battery levels.
         /// </summary>
-        public static bool IsDroneBatteryLow = _client.NavigationData.Battery.Low;
+        public static bool IsDroneBatteryLow = Program.DClient.NavigationData.Battery.Low;
 
         /// <summary>
         /// Returns the current altitude from the drone. (Meters)
         /// </summary>
-        public static float DroneAltitude = _client.NavigationData.Altitude;
+        public static float DroneAltitude = Program.DClient.NavigationData.Altitude;
 
         /// <summary>
         /// Returns the quality of the wireless signal on the drone. 
         /// </summary>
-        public static float DroneWIFIQuality = _client.NavigationData.Wifi.LinkQuality;
+        public static float DroneWIFIQuality = Program.DClient.NavigationData.Wifi.LinkQuality;
 
         /// <summary>
         /// Returns the status of the Magneto Offset along the X axis
         /// </summary>
-        public static float DroneMagnetoOffsetX = _client.NavigationData.Magneto.Offset.X;
+        public static float DroneMagnetoOffsetX = Program.DClient.NavigationData.Magneto.Offset.X;
 
         /// <summary>
         /// Returns the status of the Magneto Offset along the Y axis
         /// </summary>
-        public static float DroneMagnetoOffsetY = _client.NavigationData.Magneto.Offset.Y;
+        public static float DroneMagnetoOffsetY = Program.DClient.NavigationData.Magneto.Offset.Y;
 
         /// <summary>
         /// Returns the status of the Magneto Offset along the Z axis
         /// </summary>
-        public static float DroneMagnetoOffsetZ = _client.NavigationData.Magneto.Offset.Z;
+        public static float DroneMagnetoOffsetZ = Program.DClient.NavigationData.Magneto.Offset.Z;
 
         /// <summary>
         /// Returns the status of the Magneto Rectified along the X axis
         /// </summary>
-        public static float DroneMagnetoRectifiedX = _client.NavigationData.Magneto.Rectified.X;
+        public static float DroneMagnetoRectifiedX = Program.DClient.NavigationData.Magneto.Rectified.X;
 
         /// <summary>
         /// Returns the status of the Magneto Rectified along the Y axis
         /// </summary>
-        public static float DroneMagnetoRectifiedY = _client.NavigationData.Magneto.Rectified.Y;
+        public static float DroneMagnetoRectifiedY = Program.DClient.NavigationData.Magneto.Rectified.Y;
 
         /// <summary>
         /// Returns the status of the Magneto Rectified along the Z axis
         /// </summary>
-        public static float DroneMagnetoRectifiedZ = _client.NavigationData.Magneto.Rectified.Z;
+        public static float DroneMagnetoRectifiedZ = Program.DClient.NavigationData.Magneto.Rectified.Z;
 
         /// <summary>
         /// Returns the current Pitch value of the Drone (Radians - Y axis)
         /// </summary>
-        public static float DronePitch = _client.NavigationData.Pitch;
+        public static float DronePitch = Program.DClient.NavigationData.Pitch;
 
         /// <summary>
         /// Returns the current Roll value of the Drone (Radians - X axis)
         /// </summary>
-        public static float DroneRoll = _client.NavigationData.Roll;
+        public static float DroneRoll = Program.DClient.NavigationData.Roll;
 
         /// <summary>
         /// Returns the current Yaw value of the Drone (Radians - Z axis)
         /// </summary>
-        public static float DroneYaw = _client.NavigationData.Yaw;
+        public static float DroneYaw = Program.DClient.NavigationData.Yaw;
 
         /// <summary>
         /// Navigation State:
@@ -112,32 +96,32 @@ namespace DroneProject2.src.controller
         /// 512  = Control
         /// 1024 = Watchdog
         /// </summary>
-        public static AR.Drone.Data.Navigation.NavigationState DroneNavigationState = _client.NavigationData.State;
+        public static AR.Drone.Data.Navigation.NavigationState DroneNavigationState = Program.DClient.NavigationData.State;
 
         /// <summary>
         /// Drone Flight Time (milliseconds)
         /// </summary>
-        public static float DroneTime = _client.NavigationData.Time;
+        public static float DroneTime = Program.DClient.NavigationData.Time;
 
         /// <summary>
         /// Drone's Velocity along the X axis
         /// </summary>
-        public static float DroneVelocityX = _client.NavigationData.Velocity.X;
+        public static float DroneVelocityX = Program.DClient.NavigationData.Velocity.X;
 
         /// <summary>
         /// Drone's Velocity along the Y axis
         /// </summary>
-        public static float DroneVelocityY = _client.NavigationData.Velocity.Y;
+        public static float DroneVelocityY = Program.DClient.NavigationData.Velocity.Y;
 
         /// <summary>
         /// Drone's Velocity along the Z axis
         /// </summary>
-        public static float DroneVelocityZ = _client.NavigationData.Velocity.Z;
+        public static float DroneVelocityZ = Program.DClient.NavigationData.Velocity.Z;
 
         /// <summary>
         /// Drone's Video Frame Number.
         /// </summary>
-        public static uint DroneVideoFrame = _client.NavigationData.Video.FrameNumber;
+        public static uint DroneVideoFrame = Program.DClient.NavigationData.Video.FrameNumber;
 
 
         //------------------------------------              Drone Control Methods and Properties.       ------------------------------------------\\
@@ -145,55 +129,37 @@ namespace DroneProject2.src.controller
 
         public static void UpdateStatus()
         {
-            IsDroneConnected       = _client.IsConnected;
-            IsDroneActive          = _client.IsActive;
-            DroneBatteryPercentage = _client.NavigationData.Battery.Percentage;
-            IsDroneBatteryLow      = _client.NavigationData.Battery.Low;
-            DroneAltitude          = _client.NavigationData.Altitude;
-            DroneWIFIQuality       = _client.NavigationData.Wifi.LinkQuality;
-            DroneMagnetoOffsetX    = _client.NavigationData.Magneto.Offset.X;
-            DroneMagnetoOffsetY    = _client.NavigationData.Magneto.Offset.Y;
-            DroneMagnetoOffsetZ    = _client.NavigationData.Magneto.Offset.Z;
-            DroneMagnetoRectifiedX = _client.NavigationData.Magneto.Rectified.X;
-            DroneMagnetoRectifiedY = _client.NavigationData.Magneto.Rectified.Y;
-            DroneMagnetoRectifiedZ = _client.NavigationData.Magneto.Rectified.Z;
-            DronePitch             = _client.NavigationData.Pitch;
-            DroneRoll              = _client.NavigationData.Roll;
-            DroneYaw               = _client.NavigationData.Yaw;
-            DroneNavigationState   = _client.NavigationData.State;
-            DroneTime              = _client.NavigationData.Time;
-            DroneVelocityX         = _client.NavigationData.Velocity.X;
-            DroneVelocityY         = _client.NavigationData.Velocity.Y;
-            DroneVelocityZ         = _client.NavigationData.Velocity.Z;
-            DroneVideoFrame        = _client.NavigationData.Video.FrameNumber;
+            IsDroneConnected = Program.DClient.IsConnected;
+            IsDroneActive = Program.DClient.IsActive;
+            DroneBatteryPercentage = Program.DClient.NavigationData.Battery.Percentage;
+            IsDroneBatteryLow = Program.DClient.NavigationData.Battery.Low;
+            DroneAltitude = Program.DClient.NavigationData.Altitude;
+            DroneWIFIQuality = Program.DClient.NavigationData.Wifi.LinkQuality;
+            DroneMagnetoOffsetX = Program.DClient.NavigationData.Magneto.Offset.X;
+            DroneMagnetoOffsetY = Program.DClient.NavigationData.Magneto.Offset.Y;
+            DroneMagnetoOffsetZ = Program.DClient.NavigationData.Magneto.Offset.Z;
+            DroneMagnetoRectifiedX = Program.DClient.NavigationData.Magneto.Rectified.X;
+            DroneMagnetoRectifiedY = Program.DClient.NavigationData.Magneto.Rectified.Y;
+            DroneMagnetoRectifiedZ = Program.DClient.NavigationData.Magneto.Rectified.Z;
+            DronePitch = Program.DClient.NavigationData.Pitch;
+            DroneRoll = Program.DClient.NavigationData.Roll;
+            DroneYaw = Program.DClient.NavigationData.Yaw;
+            DroneNavigationState = Program.DClient.NavigationData.State;
+            DroneTime = Program.DClient.NavigationData.Time;
+            DroneVelocityX = Program.DClient.NavigationData.Velocity.X;
+            DroneVelocityY = Program.DClient.NavigationData.Velocity.Y;
+            DroneVelocityZ = Program.DClient.NavigationData.Velocity.Z;
+            DroneVideoFrame = Program.DClient.NavigationData.Video.FrameNumber;
 
         }
-      
+
 
         /// <summary>
         /// Starts the worker loops on the drone and activates the drone for commands.
         /// </summary>
         public static void Start()
         {
-            _client.Start();
-        }
-
-        /// <summary>
-        /// Sets the default height and pushes the drone to 1 meter.
-        /// </summary>
-        public static void Takeoff()
-        {
-            _client.Takeoff();
-            _client.Hover();
-            
-        }
-
-        /// <summary>
-        /// Performs a "slow descend" to the ground
-        /// </summary>
-        public static void Land()
-        {
-            _client.Land();
+            Program.DClient.Start();
         }
 
         /// <summary>
@@ -201,7 +167,7 @@ namespace DroneProject2.src.controller
         /// </summary>
         public static void FlatTrim()
         {
-            _client.FlatTrim();
+            Program.DClient.FlatTrim();
         }
 
         /// <summary>
@@ -221,7 +187,7 @@ namespace DroneProject2.src.controller
             }
             finally
             {
-                _client.Emergency();
+                Program.DClient.Emergency();
             }
         }
 
@@ -231,7 +197,7 @@ namespace DroneProject2.src.controller
         public static void ResetEmergency()
         {
             Program.EmergencyTriggered = false;
-            _client.ResetEmergency();
+            Program.DClient.ResetEmergency();
         }
 
         /// <summary>
@@ -239,67 +205,7 @@ namespace DroneProject2.src.controller
         /// </summary>
         public static void Hover()
         {
-            _client.Hover();
-        }
-
-        /// <summary>
-        /// Effective Shutdown of the drone.
-        /// </summary>
-        public static void Stop()
-        {
-            _client.Stop();
-        }
-
-        /// <summary>
-        /// Front and Back Tilt Directional Movement.
-        /// </summary>
-        /// <param name="direction">If True -> Move Forwards (Default), else Move Backwards</param>
-        /// <param name="val">Float: Default is the pitchval constant.</param>
-        public static void Pitch(bool direction = true, float val = _pitchval)
-        {
-            if (direction)
-                _client.Progress(_flightMode, pitch: -val);
-            else
-                _client.Progress(_flightMode, pitch: val);
-        }
-
-        /// <summary>
-        /// Roll Left and Right Directional Movement.
-        /// </summary>
-        /// <param name="direction">If True -> Roll Left (Default), else Roll Right</param>
-        /// <param name="val">Float: Default is the rollval constant.</param>
-        public static void Roll(bool direction = true, float val = _rollval)
-        {
-            if (direction)
-                _client.Progress(_flightMode, roll: -val);
-            else
-                _client.Progress(_flightMode, roll: val);
-        }
-
-        /// <summary>
-        /// YAW: Left and Right movement
-        /// </summary>
-        /// <param name="direction">If True -> Turn Left (Default), else Turn Right</param>
-        /// <param name="val">Float: Default is the yawval constant.</param>
-        public static void Yaw(bool direction = true, float val = _yawval)
-        {
-            if (direction)
-                _client.Progress(_flightMode, roll: -val);
-            else
-                _client.Progress(_flightMode, roll: val);
-        }
-
-        /// <summary>
-        /// Height Directional Movement.
-        /// </summary>
-        /// <param name="direction">If True -> Ascend (Default), else descend</param>
-        /// <param name="val">Float: Default is the gazval constant.</param>
-        public static void Gaz(bool direction = true, float val = _gazval)
-        {
-            if (direction)
-                _client.Progress(_flightMode, gaz: val);
-            else
-                _client.Progress(_flightMode, gaz: -val);
+            Program.DClient.Hover();
         }
     }
 }
