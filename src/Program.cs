@@ -10,7 +10,7 @@ namespace DroneProject2
         public static DroneProject2 DP2;
         public static bool EmergencyTriggered = false;
         public static Dictionary<String, Command> RegisteredCommands = new Dictionary<String, Command>();
-        private static string _hostname = "192.168.1.1";
+        private static readonly string _hostname = "192.168.1.1";
         public static AR.Drone.Client.DroneClient DClient = new AR.Drone.Client.DroneClient(_hostname);
 
         internal static void LoadCommands()

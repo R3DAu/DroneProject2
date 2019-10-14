@@ -15,7 +15,7 @@ namespace DroneProject2.Commands
             Name = "Takeoff";
         }
 
-        public bool Execute()
+        public override bool Execute()
         {
             try
             {

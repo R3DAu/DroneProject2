@@ -30,7 +30,23 @@ namespace DroneProject2.Commands
             return false;
         }
 
-        public bool Execute(MovementType mt)
+        public virtual bool Execute()
+        {
+            return false;
+        }
+
+        public virtual bool Execute(float f = 0.25f)
+        {
+            Float = f;
+            return false;
+        }
+
+        public virtual bool Execute(float roll = 0.25f, float pitch = 0.25f, float yaw = 0.25f, float gaz = 0.25f)
+        {
+            return false;
+        }
+
+        public virtual bool Execute(MovementType mt)
         {
             try
             {

@@ -13,10 +13,10 @@ namespace DroneProject2.Commands
             Name = "Pitch";
         }
 
-        public void Execute(float f = 0.25f)
+        public override bool Execute(float f = 0.25f)
         {
             Float = f;
-            Execute(MovementType.pitch);
+            return Execute(MovementType.pitch);
         }
     }
 }

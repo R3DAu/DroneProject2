@@ -16,7 +16,7 @@ namespace DroneProject2.Commands
             Name = "Custom";
         }
 
-        public bool Execute(float roll = 0.25f, float pitch = 0.25f, float yaw = 0.25f, float gaz = 0.25f)
+        public override bool Execute(float roll = 0.25f, float pitch = 0.25f, float yaw = 0.25f, float gaz = 0.25f)
         {
             try
             {

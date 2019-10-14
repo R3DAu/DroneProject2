@@ -96,9 +96,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.MovementLogDataGridBox = new System.Windows.Forms.DataGridView();
-            this.Movement = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Direction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Roll = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pitch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Yaw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Gaz = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sleep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.videoInput)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.FlightStatsGB.SuspendLayout();
@@ -725,39 +727,61 @@
             // 
             // MovementLogDataGridBox
             // 
-            this.MovementLogDataGridBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MovementLogDataGridBox.AllowUserToAddRows = false;
+            this.MovementLogDataGridBox.AllowUserToDeleteRows = false;
+            this.MovementLogDataGridBox.AllowUserToResizeColumns = false;
+            this.MovementLogDataGridBox.AllowUserToResizeRows = false;
+            this.MovementLogDataGridBox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.MovementLogDataGridBox.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.MovementLogDataGridBox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MovementLogDataGridBox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Movement,
-            this.Direction,
-            this.Value});
+            this.Roll,
+            this.Pitch,
+            this.Yaw,
+            this.Gaz,
+            this.Sleep});
             this.MovementLogDataGridBox.Location = new System.Drawing.Point(889, 7);
             this.MovementLogDataGridBox.Name = "MovementLogDataGridBox";
+            this.MovementLogDataGridBox.ReadOnly = true;
+            this.MovementLogDataGridBox.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.MovementLogDataGridBox.Size = new System.Drawing.Size(305, 444);
             this.MovementLogDataGridBox.TabIndex = 55;
-            this.MovementLogDataGridBox.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.MovementLogDataGridBox.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MovementLogDataGridBox_CellContentClick);
             // 
-            // Movement
+            // Roll
             // 
-            this.Movement.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Movement.HeaderText = "Movement";
-            this.Movement.Name = "Movement";
-            this.Movement.ReadOnly = true;
+            this.Roll.HeaderText = "Roll";
+            this.Roll.Name = "Roll";
+            this.Roll.ReadOnly = true;
+            this.Roll.Width = 50;
             // 
-            // Direction
+            // Pitch
             // 
-            this.Direction.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Direction.HeaderText = "Direction";
-            this.Direction.Name = "Direction";
-            this.Direction.ReadOnly = true;
-            this.Direction.Width = 74;
+            this.Pitch.HeaderText = "Pitch";
+            this.Pitch.Name = "Pitch";
+            this.Pitch.ReadOnly = true;
+            this.Pitch.Width = 56;
             // 
-            // Value
+            // Yaw
             // 
-            this.Value.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            this.Value.ReadOnly = true;
-            this.Value.Width = 59;
+            this.Yaw.HeaderText = "Yaw";
+            this.Yaw.Name = "Yaw";
+            this.Yaw.ReadOnly = true;
+            this.Yaw.Width = 53;
+            // 
+            // Gaz
+            // 
+            this.Gaz.HeaderText = "Gaz";
+            this.Gaz.Name = "Gaz";
+            this.Gaz.ReadOnly = true;
+            this.Gaz.Width = 51;
+            // 
+            // Sleep
+            // 
+            this.Sleep.HeaderText = "Sleep";
+            this.Sleep.Name = "Sleep";
+            this.Sleep.ReadOnly = true;
+            this.Sleep.Width = 59;
             // 
             // DroneProject2
             // 
@@ -871,10 +895,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.ComboBox APFilesCombo;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Movement;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Direction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
         public System.Windows.Forms.DataGridView MovementLogDataGridBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Roll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pitch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Yaw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Gaz;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sleep;
     }
 }
 

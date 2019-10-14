@@ -2,23 +2,22 @@
 using System.Windows.Forms;
 using DroneProject2.src.controller;
 using DVAPI = DroneProject2.src.controller.DroneVideo_API;
-using DCAPI = DroneProject2.src.controller.DroneController_API;
+using DCAPI = DroneProject2.Controller.DroneController_API;
 using System.Threading;
+using DroneProject2.Controller;
 
 namespace DroneProject2
 {
     public partial class DroneProject2 : Form
     {
         public static AR.Drone.Client.DroneClient DC = Program.DClient;
-        private CSVReader csv = new CSVReader();
         public Thread CommandExecutorThread;
+        public CommandController ComController = new CommandController();
 
         public DroneProject2()
         {
             InitializeComponent();
-
             
-
             //let's bind some video events.
             DVAPI.VideoWorkerBinder();
 
@@ -35,28 +34,17 @@ namespace DroneProject2
             //now drop the video packet decoder worker if it registers an issue. 
             DVAPI.VideoPacketDecoderWorker.UnhandledException += UnhandledException;
 
-
-            csv = new CSVReader();
-            csv.Load_Files();
+            //We will load files here.
+            ComController.BootstrapCommandCSVFiles();
         }
 
         private void DroneProject2_Load(object sender, EventArgs e)
         {
             Text += Environment.Is64BitProcess ? " [64-bit]" : " [32-bit]";
 
-            if (csv.files.Count > 0)
-            {
-                foreach (var file in csv.files)
-                    APFilesCombo.Items.Add(file);
-
-                APFilesCombo.SelectedIndex = 0;
-            }
-
-            if (!csv.AutoPilotIsAllowed)
-            {
-                Program.DP2.ExecuteCSVButton.Enabled = false;
-                Program.DP2.APFilesCombo.Enabled = false;
-            }
+            //update the file list in the display
+            foreach (var file in ComController.Files)
+                APFilesCombo.Items.Add(file);
         }
 
         public void DisableAutoPilotUI()
@@ -105,12 +93,12 @@ namespace DroneProject2
 
         private void TakeOffButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Takeoff();
+            Program.RegisteredCommands["TakeOff"].Execute();
         }
 
         private void LandButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Land();
+            Program.RegisteredCommands["Land"].Execute();
         }
 
         private void EmergencyButton_Click(object sender, EventArgs e)
@@ -127,32 +115,32 @@ namespace DroneProject2
 
         private void UpButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Gaz();
+            Program.RegisteredCommands["Gaz"].Execute();
         }
 
         private void DownButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Gaz(false);
+            Program.RegisteredCommands["Gaz"].Execute(-0.25f);
         }
 
         private void ForwardButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Pitch();
+            Program.RegisteredCommands["Pitch"].Execute(0.25f);
         }
 
         private void BackwardsButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Pitch(false);
+            Program.RegisteredCommands["Pitch"].Execute(-0.25f);
         }
 
         private void LeftButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Roll();
+            Program.RegisteredCommands["Yaw"].Execute(0.25f);
         }
 
         private void RightButton_Click(object sender, EventArgs e)
         {
-            DCAPI.Roll(false);
+            Program.RegisteredCommands["Yaw"].Execute(-0.25f);
         }
 
         private void StatusTick_Tick(object sender, EventArgs e)
@@ -203,13 +191,12 @@ namespace DroneProject2
         private void ExecuteCSVButton_Click(object sender, EventArgs e)
         {
             //we need whatever selected file is in the list. 
-            string file = APFilesCombo.SelectedItem.ToString();
-            this.MovementLogDataGridBox.Rows.Clear();
-            csv.Execute_File(file);
-            
+            var file = APFilesCombo.SelectedItem.ToString();
+            MovementLogDataGridBox.Rows.Clear();
+            ComController.ExecuteFile(file);
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void MovementLogDataGridBox_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

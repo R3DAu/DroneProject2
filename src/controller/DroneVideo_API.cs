@@ -14,6 +14,7 @@ using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using VideoPixelFormat = AR.Drone.Video.PixelFormat;
 using System;
 using AR.Drone.Client.Configuration;
+using DroneProject2.Controller;
 
 namespace DroneProject2.src.controller
 {
@@ -35,14 +36,14 @@ namespace DroneProject2.src.controller
         {
             var configuration = new Settings();
             configuration.Video.Channel = VideoChannelType.Horizontal;
-            DroneController_API._client.Send(configuration);
+            Program.DClient.Send(configuration);
         }
 
         public static void VerticalCamera()
         {
             var configuration = new Settings();
             configuration.Video.Channel = VideoChannelType.Vertical;
-            DroneController_API._client.Send(configuration);
+            Program.DClient.Send(configuration);
         }
 
         public static void VideoWorkerBinder()

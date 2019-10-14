@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DroneProject2.src.controller
+namespace DroneProject2.Controller
 {
     public static class DroneController_API
     {
@@ -160,6 +160,14 @@ namespace DroneProject2.src.controller
         public static void Start()
         {
             Program.DClient.Start();
+        }
+
+        /// <summary>
+        /// Stops the worker loops on the drone and deactivates the drone for commands.
+        /// </summary>
+        public static void Stop()
+        {
+            Program.DClient.Stop();
         }
 
         /// <summary>

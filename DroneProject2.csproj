@@ -83,8 +83,6 @@
     <Compile Include="src\commands\Takeoff.cs" />
     <Compile Include="src\commands\Yaw.cs" />
     <Compile Include="src\controller\CommandController.cs" />
-    <Compile Include="src\controller\CSVReader.cs" />
-    <Compile Include="src\controller\csv_functions.cs" />
     <Compile Include="src\controller\DroneController_API.cs" />
     <Compile Include="src\controller\DroneVideo_API.cs" />
     <Compile Include="src\Program.cs" />
