@@ -153,22 +153,22 @@ namespace DroneProject2
 
         private void ForwardButton_Click(object sender, EventArgs e)
         {
-            Program.RegisteredCommands["Pitch"].Execute(0.25f);
+            Program.RegisteredCommands["Pitch"].Execute(-0.25f);
         }
 
         private void BackwardsButton_Click(object sender, EventArgs e)
         {
-            Program.RegisteredCommands["Pitch"].Execute(-0.25f);
+            Program.RegisteredCommands["Pitch"].Execute(0.25f);
         }
 
         private void LeftButton_Click(object sender, EventArgs e)
         {
-            Program.RegisteredCommands["Yaw"].Execute(0.25f);
+            Program.RegisteredCommands["Roll"].Execute(-0.25f);
         }
 
         private void RightButton_Click(object sender, EventArgs e)
         {
-            Program.RegisteredCommands["Yaw"].Execute(-0.25f);
+            Program.RegisteredCommands["Roll"].Execute(0.25f);
         }
 
         private void StatusTick_Tick(object sender, EventArgs e)
