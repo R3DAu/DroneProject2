@@ -63,7 +63,11 @@ namespace DroneProject2.Controller
                 if (cmdRow.Sleep < 0)
                     Program.RegisteredCommands["Land"].Execute();
 
-                bool Success = Program.RegisteredCommands["Custom"].Execute(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz);
+                //check for hover
+                if(cmdRow.Roll == 0 && cmdRow.Pitch == 0 && cmdRow.Yaw == 0 && cmdRow.Gaz == 0)
+                    Program.DClient.Hover();
+                else
+                    Program.RegisteredCommands["Custom"].Execute(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz);
 
                 //if sleep is above 0 then we will trigger the thread to sleep.
                 if(cmdRow.Sleep > 0)
