@@ -65,26 +65,26 @@ namespace DroneProject2
 
         public void DisableManualUI()
         {
-            ForwardButton.Enabled = false;
+            /*ForwardButton.Enabled = false;
             BackwardsButton.Enabled = false;
             LeftButton.Enabled = false;
             RightButton.Enabled = false;
             HoverButton.Enabled = false;
             TakeOffButton.Enabled = false;
             UpButton.Enabled = false;
-            DownButton.Enabled = false;
+            DownButton.Enabled = false;*/
         }
 
         public void EnableManualUI()
         {
-            ForwardButton.Enabled = true;
+            /*ForwardButton.Enabled = true;
             BackwardsButton.Enabled = true;
             LeftButton.Enabled = true;
             RightButton.Enabled = true;
             HoverButton.Enabled = true;
             TakeOffButton.Enabled = true;
             UpButton.Enabled = true;
-            DownButton.Enabled = true;
+            DownButton.Enabled = true;*/
         }
 
         private void UnhandledException(object sender, Exception exception)
@@ -121,7 +121,7 @@ namespace DroneProject2
 
         private void TakeOffButton_Click(object sender, EventArgs e)
         {
-            Program.RegisteredCommands["TakeOff"].Execute();
+            Program.RegisteredCommands["Takeoff"].Execute();
         }
 
         private void LandButton_Click(object sender, EventArgs e)

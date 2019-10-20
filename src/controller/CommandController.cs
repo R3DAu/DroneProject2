@@ -40,6 +40,17 @@ namespace DroneProject2.Controller
         {
             //start execution timer
             Stopwatch ExecutionTime = Stopwatch.StartNew();
+
+            //make sure the drone is not in a flying state
+            if (Program.DClient.NavigationData.State != AR.Drone.Data.Navigation.NavigationState.Flying) {
+                //We will do flattrim and then take off.
+                Program.DClient.FlatTrim();
+                Program.RegisteredCommands["Takeoff"].Execute();
+
+                //wait for the drone to finish taking off.
+                Thread.Sleep(5000);
+            }
+
             foreach (var cmdRow in cmds)
             {
                 //start command timer
@@ -47,6 +58,10 @@ namespace DroneProject2.Controller
 
                 if (Program.EmergencyTriggered)
                     return; //cancel the thread.
+
+                //if sleep < 0 then trigger and
+                if (cmdRow.Sleep < 0)
+                    Program.RegisteredCommands["Land"].Execute();
 
                 bool Success = Program.RegisteredCommands["Custom"].Execute(cmdRow.Roll, cmdRow.Pitch, cmdRow.Yaw, cmdRow.Gaz);
 
