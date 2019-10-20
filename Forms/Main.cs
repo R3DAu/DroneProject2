@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using DroneProject2.src.controller;
 using DVAPI = DroneProject2.src.controller.DroneVideo_API;
 using DCAPI = DroneProject2.Controller.DroneController_API;
 using System.Threading;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
@@ -10,11 +8,9 @@ using AR.Drone.Media;
 using AR.Drone.Video;
 using AR.Drone.Avionics;
 
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using VideoPixelFormat = AR.Drone.Video.PixelFormat;
 using System;
 using AR.Drone.Client.Configuration;
-using DroneProject2.Controller;
 
 namespace DroneProject2.src.controller
 {
@@ -49,7 +45,7 @@ namespace DroneProject2.src.controller
         public static void VideoWorkerBinder()
         {
             //Let's do video Inputs
-            VideoPacketDecoderWorker  = new VideoPacketDecoderWorker(AR.Drone.Video.PixelFormat.BGR24, true, OnVideoPacketDecoded);
+            VideoPacketDecoderWorker  = new VideoPacketDecoderWorker(VideoPixelFormat.BGR24, true, OnVideoPacketDecoded);
             VideoPacketDecoderWorker.Start();
 
             HorizontalCamera();
@@ -93,14 +89,14 @@ namespace DroneProject2.src.controller
 
     public static class VideoHelper
     {
-        public static PixelFormat ConvertPixelFormat(VideoPixelFormat pixelFormat)
+        public static System.Drawing.Imaging.PixelFormat ConvertPixelFormat(VideoPixelFormat pixelFormat)
         {
             switch (pixelFormat)
             {
                 case VideoPixelFormat.Gray8:
-                    return PixelFormat.Format8bppIndexed;
+                    return System.Drawing.Imaging.PixelFormat.Format8bppIndexed;
                 case VideoPixelFormat.BGR24:
-                    return PixelFormat.Format24bppRgb;
+                    return System.Drawing.Imaging.PixelFormat.Format24bppRgb;
                 case VideoPixelFormat.RGB24:
                     throw new NotSupportedException();
                 default:
@@ -110,9 +106,9 @@ namespace DroneProject2.src.controller
 
         public static Bitmap CreateBitmap(ref VideoFrame frame)
         {
-            PixelFormat pixelFormat = ConvertPixelFormat(frame.PixelFormat);
+            System.Drawing.Imaging.PixelFormat pixelFormat = ConvertPixelFormat(frame.PixelFormat);
             var bitmap = new Bitmap(frame.Width, frame.Height, pixelFormat);
-            if (pixelFormat == PixelFormat.Format8bppIndexed)
+            if (pixelFormat == System.Drawing.Imaging.PixelFormat.Format8bppIndexed)
             {
                 ColorPalette palette = bitmap.Palette;
                 for (int i = 0; i < palette.Entries.Length; i++)
